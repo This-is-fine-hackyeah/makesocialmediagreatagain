@@ -2,11 +2,12 @@ import tweepy
 import pandas as pd
 import json
 
+from app.core.config import settings
 
-consumer_key = "foWA2QeRgeuCG6LJc15wGTy41"
-consumer_secret = "QV1leOWbv3Y0ZBHquoEQ7L8Pz3YI50hTc8FA7xgmvF4A3QlVnI"
-access_token = "1069515356845367297-dW5yWj3VrO5pIJd5YXILBPgffwFPGJ"
-access_token_secret = "bhOOYq9UzZA768JFe0gsegossgcm3LhcKxcDIZcVqVo16"
+consumer_key = settings.consumer_key
+consumer_secret = settings.consumer_secret
+access_token = settings.access_token
+access_token_secret = settings.access_token_secret
 
 auth = tweepy.OAuth1UserHandler(
   consumer_key,
@@ -29,7 +30,7 @@ def search_by_words(words_file):
     for media in media_types:
         for keyword in keywords:
 
-            tweets = api.search_tweets(keyword+" filter:"+media, tweet_mode="extended", lang="pl")
+            tweets = api.search_tweets(keyword+" filter:"+media, tweet_mode="extended", result_type="recent", lang="pl", count=10)
 
             for tweet in tweets:
 
@@ -66,7 +67,7 @@ def search_by_names(names_file):
     all_data = []
     for media in media_types:
         for element in keywords:
-            tweets = api.search_tweets(element+" filter:"+media, tweet_mode="extended", lang="pl", count=1000)
+            tweets = api.search_tweets(element+" filter:"+media, tweet_mode="extended", result_type="recent", lang="pl", count=10)
 
             for tweet in tweets:
 
