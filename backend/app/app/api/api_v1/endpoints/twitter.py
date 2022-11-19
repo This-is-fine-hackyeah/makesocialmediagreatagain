@@ -9,8 +9,8 @@ from app.api import deps
 router = APIRouter()
 
 
-@router.get("/", response_model=List[schemas.Item])
-def read_items(
+@router.get("/get-recent-tweets")
+def get_recent_tweets(
     db: Session = Depends(deps.get_db),
     skip: int = 0,
     limit: int = 100,
