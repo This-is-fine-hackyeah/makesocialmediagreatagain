@@ -66,7 +66,7 @@ def search_by_names(names_file):
     all_data = []
     for media in media_types:
         for element in keywords:
-            tweets = api.search_tweets(element+" filter:"+media, tweet_mode="extended", lang="pl", count=100)
+            tweets = api.search_tweets(element+" filter:"+media, tweet_mode="extended", lang="pl", count=1000)
 
             for tweet in tweets:
 
@@ -92,17 +92,6 @@ def search_by_names(names_file):
             })
     return all_data
 
-all_data = search_by_words("Bag od words.xlsx")
-all_data2 = search_by_names("Lista Podmiotów Nadzorowanych (Supervised Entities List) - HY2022.xlsx")
-print(len(all_data), len(all_data2))
-
-all = all_data + all_data2
-
-json_object = json.dumps(all, indent=4, default=str)
-
-
-with open("sample.json", "w", encoding="utf-8") as outfile:
-    outfile.write(json_object)
 
 
 

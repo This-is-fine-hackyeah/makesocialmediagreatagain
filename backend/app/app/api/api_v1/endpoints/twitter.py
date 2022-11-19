@@ -1,4 +1,5 @@
 from typing import Any, List
+import os
 
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
@@ -20,11 +21,23 @@ def get_recent_tweets(
     access_token = settings.access_token
     access_token_secret = settings.access_token_secret
 
-    all_data = search_by_words("/app/core/scrapper/Bag od words.xlsx")
-    all_data2 = search_by_names("/app/core/scrapper/Lista Podmiotów Nadzorowanych (Supervised Entities List) - HY2022.xlsx")
+    print(os.getcwd())
+
+    all_data = search_by_words("app/core/scrapper/Bag od words.xlsx")
+    all_data2 = search_by_names("app/core/scrapper/Lista Podmiotów Nadzorowanych (Supervised Entities List) - HY2022.xlsx")
     print(len(all_data), len(all_data2))
 
-    all = all_data + all_data2
+    all_tweets = all_data + all_data2
+
+    for one_tweet in all_tweets:
+        # ML tutaj
+        # prediction = get_prediction_from_model(one_tweet)
+        prediction = 0.5 #jeden rabin powie tak, drugi rabin powie nie
+        tweet = crud.tweet.create_if_not_exists(
+            db, schemas.UserCreate(tweet_id=one_tweet["id"], text=one_tweet["text"], author_name=one_tweet["author_at"], prediction=prediction, status="initial")
+        )
+    return 200
+
 
 
 @router.put("/{id}", response_model=schemas.Item)
