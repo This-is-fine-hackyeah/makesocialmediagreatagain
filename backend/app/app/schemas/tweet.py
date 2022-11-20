@@ -1,3 +1,5 @@
+from typing import Optional, List
+
 from pydantic import BaseModel
 
 
@@ -7,3 +9,4 @@ class TweetCreate(BaseModel):
     author_name: str
     prediction: float
     status: str
+    media: Optional[List]

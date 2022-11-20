@@ -11,3 +11,4 @@ class Tweet(Base):
     text = Column(String, nullable=False)
     prediction = Column(Float, nullable=False)
     status = Column(String, nullable=False)
+    media = Column(String)

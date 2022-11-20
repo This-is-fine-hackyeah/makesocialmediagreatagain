@@ -34,9 +34,8 @@ def get_recent_tweets(
         # ML tutaj
         # prediction = get_prediction_from_model(one_tweet)
         prediction = 0.5 #jeden rabin powie tak, drugi rabin powie nie
-
         result = crud.tweet.create_if_not_exists(
-            db, schemas.TweetCreate(tweet_id=one_tweet["id"], text=one_tweet["text"], author_name=one_tweet["author_at"], prediction=0.5, status="initial")
+            db, schemas.TweetCreate(tweet_id=one_tweet["id"], text=one_tweet["text"], author_name=one_tweet["author_at"], prediction=0.5, status="initial", media=one_tweet["media_url"])
         )
         if result is not None:
             # ML tutaj
