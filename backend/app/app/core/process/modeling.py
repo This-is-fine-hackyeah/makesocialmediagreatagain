@@ -53,4 +53,27 @@ class Classifier(nn.Module):
         torch.save(self.fc.state_dict(), name)
 
 
+class ScamDetector(nn.Module):
+    """Module for detecting scams."""
+    def __init__(self):
+        super().__init__()
 
+        self.feature_extractor = TextFeatureExtractor()
+        self.classifier = Classifier(pretrained="classifier.pth", final=nn.Sigmoid)
+
+        self.eval()
+
+    def forward(self, x):
+        features = self.feature_extractor(x)
+        return self.classifier(features)
+
+
+detector = None
+
+def detect_scam(text: str) -> float:
+    """Detect scam in given text."""
+    global detector
+    if detector is None:
+        detector = ScamDetector()
+    with torch.no_grad():
+        return detector([text]).item()
