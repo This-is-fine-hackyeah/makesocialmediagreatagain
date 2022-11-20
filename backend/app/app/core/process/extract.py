@@ -49,9 +49,12 @@ def extract_text(directory: str):
     """Extract text from images and videos in given directory and save to json."""
     texts = defaultdict(list)
     for path in tqdm(Path(directory).iterdir(), desc="Extracting text"):
-        id_, idx = path.stem.split("_")
+        try:
+            id_, idx = path.stem.rsplit("_", maxsplit=1)
+        except ValueError:
+            id_ = path.stem
         if path.is_file():
             text = ocr(str(path))
             texts[id_].append(text)
-    with open(f"{directory}.json") as fp:
+    with open(f"{directory}.json", "w") as fp:
         json.dump(texts, fp)
