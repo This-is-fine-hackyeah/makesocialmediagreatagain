@@ -40,6 +40,7 @@ numpy = "^1.23.4"
 scipy = "^1.9.3"
 torch = { version = "1.13.0", source = "torch-cpu" }
 transformers = "^4.24.0"
+sacremoses = "^0.0.53"
 
 [tool.poetry.dev-dependencies]
 mypy = "^0.770"
