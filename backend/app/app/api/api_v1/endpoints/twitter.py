@@ -8,6 +8,7 @@ from sqlalchemy.orm import Session
 from app import crud, schemas
 from app.core.config import settings
 from app.api.deps import get_db
+from app.core.process.pipeline import run_pipeline
 from app.core.scrapper.train_scrapper import search_by_words, search_by_names
 
 router = APIRouter()
@@ -32,9 +33,8 @@ def get_recent_tweets(
             db, schemas.TweetCreate(tweet_id=one_tweet["id"], text=one_tweet["text"], author_name=one_tweet["author_at"], prediction=0.5, status="initial", media=one_tweet["media_url"])
         )
         if result is not None:
-            # ML tutaj
-            # prediction = get_prediction_from_model(one_tweet)
-            # result.prediction = prediction
+            prediction = run_pipeline(one_tweet)
+            result.prediction = prediction
             db.commit()
             new_tweets.append({"id": result.tweet_id, "prediction": result.prediction})
     return json.dumps(new_tweets)
