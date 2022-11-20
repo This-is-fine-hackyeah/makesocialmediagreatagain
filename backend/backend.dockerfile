@@ -2,8 +2,19 @@ FROM tiangolo/uvicorn-gunicorn-fastapi:python3.9
 
 WORKDIR /app/
 
+# Install OpenCV dependencies
+RUN apt-get update && \
+    apt-get install -yqq --no-install-recommends \
+    ffmpeg libsm6 libxext6 && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
+
 # Install tesseract
-RUN apt-get update && apt-get install -y tesseract-ocr libtesseract-dev libleptonica-dev pkg-config tesseract-ocr-pol
+RUN apt-get update && \
+    apt-get install -yqq --no-install-recommends \
+    tesseract-ocr libtesseract-dev libleptonica-dev pkg-config tesseract-ocr-pol && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
 
 # Install Poetry
 RUN curl -sSL https://install.python-poetry.org | POETRY_HOME=/opt/poetry python && \
