@@ -22,11 +22,8 @@ def get_recent_tweets(
     access_token = settings.access_token
     access_token_secret = settings.access_token_secret
 
-    print(os.getcwd())
-
     all_data = search_by_words("app/core/scrapper/Bag od words.xlsx")
     all_data2 = search_by_names("app/core/scrapper/Lista Podmiotów Nadzorowanych (Supervised Entities List) - HY2022.xlsx")
-    print(len(all_data), len(all_data2))
 
     all_tweets = all_data + all_data2
     new_tweets = []
