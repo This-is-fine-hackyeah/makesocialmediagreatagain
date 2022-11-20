@@ -36,10 +36,13 @@ def get_recent_tweets(
         prediction = 0.5 #jeden rabin powie tak, drugi rabin powie nie
 
         result = crud.tweet.create_if_not_exists(
-            db, schemas.TweetCreate(tweet_id=one_tweet["id"], text=one_tweet["text"], author_name=one_tweet["author_at"], prediction=prediction, status="initial")
+            db, schemas.TweetCreate(tweet_id=one_tweet["id"], text=one_tweet["text"], author_name=one_tweet["author_at"], prediction=0.5, status="initial")
         )
-        db.commit()
         if result is not None:
+            # ML tutaj
+            # prediction = get_prediction_from_model(one_tweet)
+            # result.prediction = prediction
+            db.commit()
             new_tweets.append({"id": result.tweet_id, "prediction": result.prediction})
     return json.dumps(new_tweets)
 
