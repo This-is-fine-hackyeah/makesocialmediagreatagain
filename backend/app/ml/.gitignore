@@ -1,0 +1,10 @@
+/negative_images.json
+/negative_parsed.json
+/negative_features.pickle
+/positive_images.json
+/positive_parsed.json
+/positive_features.pickle
+/negative_images
+/positive_images
+/checkpoints
+/lightning_logs

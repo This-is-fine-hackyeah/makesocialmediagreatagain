@@ -4,6 +4,12 @@ version = "0.1.0"
 description = ""
 authors = ["Admin <admin@example.com>"]
 
+[[tool.poetry.source]]
+name = "torch-cpu"
+url = "https://download.pytorch.org/whl/cpu"
+default = false
+secondary = true
+
 [tool.poetry.dependencies]
 python = "^3.9"
 uvicorn = "^0.19.0"
@@ -27,6 +33,13 @@ importlib-metadata = "4.13.0"
 tweepy = "^4.12.1"
 pandas = "^1.5.1"
 openpyxl = "^3.0.10"
+tesserocr = "^2.5.2"
+opencv-python = "^4.6.0.66"
+Pillow = "^9.3.0"
+numpy = "^1.23.4"
+scipy = "^1.9.3"
+torch = { version = "1.13.0", source = "torch-cpu" }
+transformers = "^4.24.0"
 
 [tool.poetry.dev-dependencies]
 mypy = "^0.770"
